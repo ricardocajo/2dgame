@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -8,8 +6,9 @@ public class PlayerMovement : MonoBehaviour
     private float speed = 40f;
     private float horizontal;
     private float vertical;
-    private bool is_facing_right = true;
+    //private bool is_facing_right = true;
     [SerializeField] private Rigidbody2D rb;
+    public Joystick joystick;
 
     // Update is called once per frame
     void Update()
@@ -17,15 +16,22 @@ public class PlayerMovement : MonoBehaviour
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
 
-        Flip_Horizontal();
+        //Flip_Horizontal();
     }
 
     private void FixedUpdate()
     {
+        if(joystick.joystickVec.y != 0 || joystick.joystickVec.x != 0)
+        {
+            rb.velocity = new Vector2(joystick.joystickVec.x * speed, joystick.joystickVec.y * speed);
+        }
+        else
+        {
         rb.velocity = new Vector2(horizontal * speed, vertical * speed);
+        }
     }
 
-    private void Flip_Horizontal()
+    /*private void Flip_Horizontal()
     {
         if(is_facing_right && horizontal < 0f || !is_facing_right && horizontal > 0f)
         {
@@ -34,5 +40,5 @@ public class PlayerMovement : MonoBehaviour
             localScale.x *= -1f;
             transform.localScale = localScale;
         }
-    }
+    }*/
 }
