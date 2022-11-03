@@ -3,12 +3,18 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
-    private float speed = 40f;
+    private float speed = 3.5f;
     private float horizontal;
     private float vertical;
     //private bool is_facing_right = true;
-    [SerializeField] private Rigidbody2D rb;
+    private Rigidbody2D rb;
     public Joystick joystick;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        rb = gameObject.GetComponent<Rigidbody2D>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -28,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
         rb.velocity = new Vector2(horizontal * speed, vertical * speed);
+        //rb.AddForce(new Vector2(1000f, 1000f), ForceMode2D.Impulse);
         }
     }
 

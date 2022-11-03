@@ -3,32 +3,34 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private float hp = 100f;
-    private float knockback_force = 10f;
+    private float knockback_force = 4000f;
+    private Rigidbody2D rb;
 
     // Start is called before the first frame update
     void Start()
     {
-        GameEvents.current.onEnemyContactTriggerEnter += EnemyContact;
+        GameEvents.Instance.onEnemyContactTriggerEnter += EnemyContact;
+        rb = gameObject.GetComponent<Rigidbody2D>();
     }
 
     private void EnemyContact()
     {
         DoDamageToPlayer();
         DoKnockback();
-        //Debug.Log("Current hp: " + hp);
     }
 
     private void DoDamageToPlayer()
      {
         hp -= 20;
+        //Debug.Log("Current hp: " + hp);
      }
 
      private void DoKnockback()
      {
-        Vector2 difference = GameEvents.GetEnemyInContactPosition() - transform.position;
+        Vector2 difference = transform.position - GameEvents.GetEnemyInContactPosition();
         difference = difference.normalized * knockback_force;
-        Debug.Log("difference: " + difference);
-        gameObject.GetComponent<Rigidbody2D>().AddForce(difference, ForceMode2D.Impulse);
+
+        rb.AddForce(difference, ForceMode2D.Force);
      }
 
 }

@@ -16,7 +16,7 @@ public class Joystick : MonoBehaviour
     void Start()
     {
         joystickOriginalPos = joystickBG.transform.position;
-        joystickRadius = joystickBG.GetComponent<RectTransform>().sizeDelta.y / 6.0f;
+        joystickRadius = joystickBG.GetComponent<RectTransform>().sizeDelta.y / 80f;
     }
 
     public void PointerDown()

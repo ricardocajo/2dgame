@@ -1,18 +1,25 @@
 using System;
 using UnityEngine;
 
-public class GameEvents : MonoBehaviour
-{
+public class GameEvents : MonoBehaviour {
+    private static GameEvents _instance;
 
-    public static GameEvents current;
-    private static Vector3 enemy_in_contact_position;
+    public static GameEvents Instance { get { return _instance; } }
 
 
     private void Awake()
     {
-        current = this;
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        } else {
+            _instance = this;
+            //Check DontDestroyOnLoad if want to persist across scenes
+            //DontDestroyOnLoad(gameObject);
+        }
     }
 
+    private static Vector3 enemy_in_contact_position;
     public event Action onEnemyContactTriggerEnter;
     public void EnemyContactTriggerEnter()
     {
@@ -31,5 +38,4 @@ public class GameEvents : MonoBehaviour
     {
         enemy_in_contact_position = enemy_position;
     }
-
 }
