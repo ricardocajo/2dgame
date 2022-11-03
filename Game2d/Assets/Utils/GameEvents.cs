@@ -19,7 +19,7 @@ public class GameEvents : MonoBehaviour {
         }
     }
 
-    private static Vector3 enemy_in_contact_position;
+    private Vector3 enemy_in_contact_position;
     public event Action onEnemyContactTriggerEnter;
     public void EnemyContactTriggerEnter()
     {
@@ -29,12 +29,12 @@ public class GameEvents : MonoBehaviour {
         }
     }
 
-    public static Vector3 GetEnemyInContactPosition()
+    public Vector3 GetEnemyInContactPosition()
     {
         return enemy_in_contact_position;
     }
 
-    public static void SetEnemyInContactPosition(Vector3 enemy_position)
+    public void SetEnemyInContactPosition(Vector3 enemy_position)
     {
         enemy_in_contact_position = enemy_position;
     }

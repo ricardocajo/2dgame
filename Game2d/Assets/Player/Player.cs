@@ -1,12 +1,25 @@
 using UnityEngine;
 
-public class Player : MonoBehaviour
-{
+public class Player : MonoBehaviour {
+    private static Player _instance;
+
+    public static Player Instance { get { return _instance; } }
+
     private float hp = 100f;
-    private float knockback_force = 4000f;
     private Rigidbody2D rb;
 
-    // Start is called before the first frame update
+    private void Awake()
+    {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        } else {
+            _instance = this;
+            //Check DontDestroyOnLoad if want to persist across scenes
+            //DontDestroyOnLoad(gameObject);
+        }
+    }
+
     void Start()
     {
         GameEvents.Instance.onEnemyContactTriggerEnter += EnemyContact;
@@ -16,7 +29,7 @@ public class Player : MonoBehaviour
     private void EnemyContact()
     {
         DoDamageToPlayer();
-        DoKnockback();
+        PlayerMovement.Instance.DoKnockback();
     }
 
     private void DoDamageToPlayer()
@@ -24,13 +37,4 @@ public class Player : MonoBehaviour
         hp -= 20;
         //Debug.Log("Current hp: " + hp);
      }
-
-     private void DoKnockback()
-     {
-        Vector2 difference = transform.position - GameEvents.GetEnemyInContactPosition();
-        difference = difference.normalized * knockback_force;
-
-        rb.AddForce(difference, ForceMode2D.Force);
-     }
-
 }
