@@ -6,6 +6,7 @@ public class Player : MonoBehaviour {
     public static Player Instance { get { return _instance; } }
 
     private float hp = 100f;
+    private float mana = 100f;
     private Rigidbody2D rb;
 
     private void Awake()
@@ -34,7 +35,16 @@ public class Player : MonoBehaviour {
 
     private void DoDamageToPlayer()
      {
-        hp -= 20;
-        //Debug.Log("Current hp: " + hp);
+        hp -= GameEvents.Instance.GetDamageValue();
+        GameEvents.Instance.PlayerHpLost();
+        CheckIfPlayerDead();
+     }
+
+     private void CheckIfPlayerDead()
+     {
+        if(hp <= 0f)
+        {
+            Debug.Log("Player Dead");
+        }
      }
 }

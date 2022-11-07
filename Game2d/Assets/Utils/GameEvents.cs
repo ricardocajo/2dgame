@@ -38,4 +38,47 @@ public class GameEvents : MonoBehaviour {
     {
         enemy_in_contact_position = enemy_position;
     }
+
+
+    //lock mechanism for this?
+    private float damage_value;
+    public event Action onPlayerHpLost;
+    public void PlayerHpLost()
+    {
+        if(onPlayerHpLost != null)
+        {
+            onPlayerHpLost();
+        }
+    }
+
+    public float GetDamageValue()
+    {
+        return damage_value;
+    }
+
+    public void SetDamageValue(float damage)
+    {
+        damage_value = damage;
+    }
+
+
+    private float mana_value;
+    public event Action onPlayerManaLost;
+    public void PlayerManaLost()
+    {
+        if(onPlayerManaLost != null)
+        {
+            onPlayerManaLost();
+        }
+    }
+
+    public float GetManaValue()
+    {
+        return mana_value;
+    }
+
+    public void SetManaValue(float mana)
+    {
+        mana_value = mana;
+    }
 }

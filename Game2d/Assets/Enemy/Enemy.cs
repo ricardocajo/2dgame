@@ -2,15 +2,12 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private float damage_value = 20f;
 
     private void OnCollisionEnter2D(Collision2D other)
     {
         GameEvents.Instance.SetEnemyInContactPosition(transform.position);
+        GameEvents.Instance.SetDamageValue(damage_value);
         GameEvents.Instance.EnemyContactTriggerEnter();
     }
 
