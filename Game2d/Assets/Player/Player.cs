@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Player : MonoBehaviour {
     private static Player _instance;
@@ -8,6 +9,14 @@ public class Player : MonoBehaviour {
     private float hp = 100f;
     private float mana = 100f;
     private Rigidbody2D rb;
+    List<string> player_skills = new List<string>()
+                    {
+                        "skill1",
+                        "skill2",
+                        "skill3",
+                        "skill4",
+                        "skill5"                    
+                    };
 
     private void Awake()
     {
@@ -34,17 +43,94 @@ public class Player : MonoBehaviour {
     }
 
     private void DoDamageToPlayer()
-     {
-        hp -= GameEvents.Instance.GetDamageValue();
+    {
+        hp -= GameEvents.Instance.GetPlayerIncDamageValue();
         GameEvents.Instance.PlayerHpLost();
         CheckIfPlayerDead();
-     }
+    }
 
-     private void CheckIfPlayerDead()
-     {
+    private void CheckIfPlayerDead()
+    {   
         if(hp <= 0f)
         {
             Debug.Log("Player Dead");
         }
-     }
+    }
+
+    public void UseSkill_1()
+    {
+        UseSkill(skills[player_skills[0]]);
+    }
+
+    public void UseSkill_2()
+    {
+        UseSkill(skills[player_skills[1]]);
+    }
+
+    public void UseSkill_3()
+    {
+        UseSkill(skills[player_skills[2]]);
+    }
+
+    public void UseSkill_4()
+    {
+        UseSkill(skills[player_skills[3]]);
+    }
+
+    public void UseSkill_5()
+    {
+        UseSkill(skills[player_skills[4]]);
+    }
+
+    public void UseSkill(Dictionary<string,float> properties)
+    {
+
+    }
+
+    //Skill name -> Skill properties
+    private static Dictionary<string, Dictionary<string,float>> skills = new Dictionary<string, Dictionary<string,float>>
+    {
+    {"skill1", new Dictionary<string, float>{
+        {"damage", 10f},
+        {"mana", 10f},
+        {"movement", 10f},
+        {"selfdamage", 10f},
+        {"buff", 10f}
+    }},
+    {"skill2", new Dictionary<string, float>{
+        {"damage", 20f},
+        {"mana", 10f},
+        {"movement", 10f},
+        {"selfdamage", 10f},
+        {"buff", 10f}
+    }},
+    {"skill3", new Dictionary<string, float>{
+        {"damage", 30f},
+        {"mana", 10f},
+        {"movement", 10f},
+        {"selfdamage", 10f},
+        {"buff", 10f}
+    }},
+    {"skill4", new Dictionary<string, float>{
+        {"damage", 40f},
+        {"mana", 10f},
+        {"movement", 10f},
+        {"selfdamage", 10f},
+        {"buff", 10f}
+    }},
+    {"skill5", new Dictionary<string, float>{
+        {"damage", 0f},
+        {"mana", 10f},
+        {"movement", 10f},
+        {"selfdamage", 10f},
+        {"buff", 10f}
+    }},
+    {"skill6", new Dictionary<string, float>{
+        {"damage", 50f},
+        {"mana", 10f},
+        {"movement", 10f},
+        {"selfdamage", 10f},
+        {"buff", 10f}
+    }}
+    };
 }

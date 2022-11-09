@@ -1541,6 +1541,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 771594663}
     m_Modifications:
+    - target: {fileID: 49335527606752738, guid: 16d4919198ae525a2bd5f5872ee7b473, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 49335527606752738, guid: 16d4919198ae525a2bd5f5872ee7b473, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 49335527606752738, guid: 16d4919198ae525a2bd5f5872ee7b473, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 49335527606752764, guid: 16d4919198ae525a2bd5f5872ee7b473, type: 3}
       propertyPath: m_Name
       value: b_Skill_1

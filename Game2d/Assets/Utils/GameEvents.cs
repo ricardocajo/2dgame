@@ -41,7 +41,7 @@ public class GameEvents : MonoBehaviour {
 
 
     //lock mechanism for this?
-    private float damage_value;
+    private float player_damage_value;
     public event Action onPlayerHpLost;
     public void PlayerHpLost()
     {
@@ -51,14 +51,35 @@ public class GameEvents : MonoBehaviour {
         }
     }
 
-    public float GetDamageValue()
+    public float GetPlayerIncDamageValue()
     {
-        return damage_value;
+        return player_damage_value;
     }
 
-    public void SetDamageValue(float damage)
+    public void SetPlayerIncDamageValue(float damage)
     {
-        damage_value = damage;
+        player_damage_value = damage;
+    }
+
+
+    private float enemy_damage_value;
+    public event Action onEnemyHpLost;
+    public void EnemyHpLost()
+    {
+        if(onEnemyHpLost != null)
+        {
+            onEnemyHpLost();
+        }
+    }
+
+    public float GetEnemyIncDamageValue()
+    {
+        return enemy_damage_value;
+    }
+
+    public void SetEnemyIncDamageValue(float damage)
+    {
+        enemy_damage_value = damage;
     }
 
 

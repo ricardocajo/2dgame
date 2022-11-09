@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other)
     {
         GameEvents.Instance.SetEnemyInContactPosition(transform.position);
-        GameEvents.Instance.SetDamageValue(damage_value);
+        GameEvents.Instance.SetPlayerIncDamageValue(damage_value);
         GameEvents.Instance.EnemyContactTriggerEnter();
     }
 
