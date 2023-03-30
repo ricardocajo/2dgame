@@ -82,9 +82,11 @@ public class Player : MonoBehaviour {
         UseSkill(skills[player_skills[4]]);
     }
 
-    public void UseSkill(Dictionary<string,float> properties)
-    {
-
+    public void UseSkill(Dictionary<string,float> skill_properties)
+    { 
+        skill_properties.TryGetValue("mana", out float mana_cost);
+        GameEvents.Instance.SetManaValue(mana_cost);
+        GameEvents.Instance.PlayerManaLost();
     }
 
     //Skill name -> Skill properties
@@ -99,14 +101,14 @@ public class Player : MonoBehaviour {
     }},
     {"skill2", new Dictionary<string, float>{
         {"damage", 20f},
-        {"mana", 10f},
+        {"mana", 20f},
         {"movement", 10f},
         {"selfdamage", 10f},
         {"buff", 10f}
     }},
     {"skill3", new Dictionary<string, float>{
         {"damage", 30f},
-        {"mana", 10f},
+        {"mana", 30f},
         {"movement", 10f},
         {"selfdamage", 10f},
         {"buff", 10f}
