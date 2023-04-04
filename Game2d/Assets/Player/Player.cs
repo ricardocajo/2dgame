@@ -7,9 +7,9 @@ public class Player : MonoBehaviour {
     public static Player Instance { get { return _instance; } }
 
     private float hp = 100f;
-    private float mana = 100f;
+    private static float mana = 100f;
     private Rigidbody2D rb;
-    List<string> player_skills = new List<string>()
+    private static List<string> player_skills = new List<string>()
                     {
                         "skill1",
                         "skill2",
@@ -57,36 +57,44 @@ public class Player : MonoBehaviour {
         }
     }
 
-    public void UseSkill_1()
+    public static void UseSkill_1()
     {
         UseSkill(skills[player_skills[0]]);
     }
 
-    public void UseSkill_2()
+    public static void UseSkill_2()
     {
         UseSkill(skills[player_skills[1]]);
     }
 
-    public void UseSkill_3()
+    public static void UseSkill_3()
     {
         UseSkill(skills[player_skills[2]]);
     }
 
-    public void UseSkill_4()
+    public static void UseSkill_4()
     {
         UseSkill(skills[player_skills[3]]);
     }
 
-    public void UseSkill_5()
+    public static void UseSkill_5()
     {
         UseSkill(skills[player_skills[4]]);
     }
 
-    public void UseSkill(Dictionary<string,float> skill_properties)
+    private static void UseSkill(Dictionary<string,float> skill_properties)
     { 
         skill_properties.TryGetValue("mana", out float mana_cost);
-        GameEvents.Instance.SetManaValue(mana_cost);
-        GameEvents.Instance.PlayerManaLost();
+        if(mana < mana_cost) {
+            Debug.Log("Not enough mana: " + mana);
+            Debug.Log("mana cost: " + mana_cost);
+        }
+        else
+        {
+            mana -= mana_cost;
+            GameEvents.Instance.SetManaValue(mana_cost);
+            GameEvents.Instance.PlayerManaLost();
+        }
     }
 
     //Skill name -> Skill properties

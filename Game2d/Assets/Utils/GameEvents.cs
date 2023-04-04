@@ -6,6 +6,7 @@ public class GameEvents : MonoBehaviour {
 
     public static GameEvents Instance { get { return _instance; } }
 
+//TODO   Instantiate private values?????
 
     private void Awake()
     {
@@ -20,6 +21,7 @@ public class GameEvents : MonoBehaviour {
     }
 
     private Vector3 enemy_in_contact_position;
+    private float knockback_force;
     public event Action onEnemyContactTriggerEnter;
     public void EnemyContactTriggerEnter()
     {
@@ -37,6 +39,16 @@ public class GameEvents : MonoBehaviour {
     public void SetEnemyInContactPosition(Vector3 enemy_position)
     {
         enemy_in_contact_position = enemy_position;
+    }
+
+    public float GetEnemyKnockBackForce()
+    {
+        return knockback_force;
+    }
+
+    public void SetEnemyKnockBackForce(float force)
+    {
+        knockback_force = force;
     }
 
 

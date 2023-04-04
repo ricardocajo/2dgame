@@ -3,13 +3,13 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
-    Image hpBar_image;
-    Image manaBar_image;
+    private Image hpBar_image;
+    private Image manaBar_image;
 
     void Start()
     {
         hpBar_image = gameObject.transform.Find("Health_bar").gameObject.GetComponent<Image>();
-        manaBar_image = gameObject.transform.Find("Mana_bar").gameObject.gameObject.GetComponent<Image>();
+        manaBar_image = gameObject.transform.Find("Mana_bar").gameObject.GetComponent<Image>();
         GameEvents.Instance.onPlayerHpLost += DecreaseHpBar;
         GameEvents.Instance.onPlayerManaLost += DecreaseManaBar;
     }

@@ -7,7 +7,6 @@ public class PlayerMovement : MonoBehaviour {
     public static PlayerMovement Instance { get { return _instance; } }
 
     private float speed = 3.5f;
-    private float knockback_force = 450f;
     private float knockback_time = 0.4f;
     private Vector2 knockback_difference;
     private bool knocked_back = false;
@@ -60,7 +59,7 @@ public class PlayerMovement : MonoBehaviour {
     public void DoKnockback()
      {
         Vector2 difference = transform.position - GameEvents.Instance.GetEnemyInContactPosition();
-        knockback_difference = difference.normalized * knockback_force;
+        knockback_difference = difference.normalized * GameEvents.Instance.GetEnemyKnockBackForce();
         knocked_back = true;
         StartCoroutine(Unknockback());
      }
