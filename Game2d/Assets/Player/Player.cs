@@ -6,6 +6,10 @@ public class Player : MonoBehaviour {
 
     public static Player Instance { get { return _instance; } }
 
+    private Equipment equipment;
+    private Experience experience;
+    private Stats stats;
+    private Inventory inventory;
     private float hp = 100f;
     private static float mana = 100f;
     private Rigidbody2D rb;
@@ -14,8 +18,7 @@ public class Player : MonoBehaviour {
                         "skill1",
                         "skill2",
                         "skill3",
-                        "skill4",
-                        "skill5"                    
+                        "skill4"                  
                     };
 
     private void Awake()
@@ -34,6 +37,9 @@ public class Player : MonoBehaviour {
     {
         GameEvents.Instance.onEnemyContactTriggerEnter += EnemyContact;
         rb = gameObject.GetComponent<Rigidbody2D>();
+        // should inventory/stats be initiated here? does it persist between scenes?
+        inventory = new Inventory();
+        stats = new Stats();
     }
 
     private void EnemyContact()
@@ -59,27 +65,27 @@ public class Player : MonoBehaviour {
 
     public static void UseSkill_1()
     {
-        UseSkill(skills[player_skills[0]]);
+        UseSkill(Skills_list.skills[player_skills[0]]);
     }
 
     public static void UseSkill_2()
     {
-        UseSkill(skills[player_skills[1]]);
+        UseSkill(Skills_list.skills[player_skills[1]]);
     }
 
     public static void UseSkill_3()
     {
-        UseSkill(skills[player_skills[2]]);
+        UseSkill(Skills_list.skills[player_skills[2]]);
     }
 
     public static void UseSkill_4()
     {
-        UseSkill(skills[player_skills[3]]);
+        UseSkill(Skills_list.skills[player_skills[3]]);
     }
 
-    public static void UseSkill_5()
+    public static void UseAttack()
     {
-        UseSkill(skills[player_skills[4]]);
+        
     }
 
     private static void UseSkill(Dictionary<string,float> skill_properties)
@@ -97,50 +103,4 @@ public class Player : MonoBehaviour {
         }
     }
 
-    //Skill name -> Skill properties
-    private static Dictionary<string, Dictionary<string,float>> skills = new Dictionary<string, Dictionary<string,float>>
-    {
-    {"skill1", new Dictionary<string, float>{
-        {"damage", 10f},
-        {"mana", 10f},
-        {"movement", 10f},
-        {"selfdamage", 10f},
-        {"buff", 10f}
-    }},
-    {"skill2", new Dictionary<string, float>{
-        {"damage", 20f},
-        {"mana", 20f},
-        {"movement", 10f},
-        {"selfdamage", 10f},
-        {"buff", 10f}
-    }},
-    {"skill3", new Dictionary<string, float>{
-        {"damage", 30f},
-        {"mana", 30f},
-        {"movement", 10f},
-        {"selfdamage", 10f},
-        {"buff", 10f}
-    }},
-    {"skill4", new Dictionary<string, float>{
-        {"damage", 40f},
-        {"mana", 10f},
-        {"movement", 10f},
-        {"selfdamage", 10f},
-        {"buff", 10f}
-    }},
-    {"skill5", new Dictionary<string, float>{
-        {"damage", 0f},
-        {"mana", 10f},
-        {"movement", 10f},
-        {"selfdamage", 10f},
-        {"buff", 10f}
-    }},
-    {"skill6", new Dictionary<string, float>{
-        {"damage", 50f},
-        {"mana", 10f},
-        {"movement", 10f},
-        {"selfdamage", 10f},
-        {"buff", 10f}
-    }}
-    };
 }

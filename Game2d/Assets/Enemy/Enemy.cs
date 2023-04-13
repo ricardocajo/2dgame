@@ -14,4 +14,3 @@ public abstract class Enemy : MonoBehaviour
         GameEvents.Instance.EnemyContactTriggerEnter();
     }
 }
-
