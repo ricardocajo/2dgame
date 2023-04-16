@@ -12,8 +12,9 @@ public class PlayerMovement : MonoBehaviour {
     private bool knocked_back = false;
     private float horizontal;
     private float vertical;
-    //private bool is_facing_right = true;
+    private bool is_facing_right = true;
     private Rigidbody2D rb;
+    private Animator animator;
     public Joystick joystick;
 
     private void Awake()
@@ -31,14 +32,14 @@ public class PlayerMovement : MonoBehaviour {
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
+        animator = gameObject.GetComponent<Animator>();
     }
 
     void Update()
     {
+        //TODO This is always 0 ????
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
-
-        //Flip_Horizontal();
     }
 
     private void FixedUpdate()
@@ -49,11 +50,13 @@ public class PlayerMovement : MonoBehaviour {
         if(joystick.joystickVec.y != 0 || joystick.joystickVec.x != 0)
         {
             rb.velocity = new Vector2(joystick.joystickVec.x * speed, joystick.joystickVec.y * speed);
+            Flip_Horizontal();
         }
         else
         {
-        rb.velocity = new Vector2(horizontal * speed, vertical * speed);
+            rb.velocity = new Vector2(horizontal * speed, vertical * speed);
         }
+        animator.SetFloat("Speed",Mathf.Max(Mathf.Abs(joystick.joystickVec.y), Mathf.Abs(joystick.joystickVec.x))); 
     }
 
     public void DoKnockback()
@@ -61,6 +64,7 @@ public class PlayerMovement : MonoBehaviour {
         Vector2 difference = transform.position - GameEvents.Instance.GetEnemyInContactPosition();
         knockback_difference = difference.normalized * GameEvents.Instance.GetEnemyKnockBackForce();
         knocked_back = true;
+        animator.SetBool("TakeHit", true);
         StartCoroutine(Unknockback());
      }
 
@@ -68,16 +72,18 @@ public class PlayerMovement : MonoBehaviour {
     {
         yield return new WaitForSeconds(knockback_time);
         knocked_back = false;
+        animator.SetBool("TakeHit", false);
     }
 
-    /*private void Flip_Horizontal()
+    private void Flip_Horizontal()
     {
-        if(is_facing_right && horizontal < 0f || !is_facing_right && horizontal > 0f)
+        // joystick.joystickVec.x  by horizontal
+        if(is_facing_right && joystick.joystickVec.x < 0f || !is_facing_right && joystick.joystickVec.x > 0f)
         {
             is_facing_right = !is_facing_right;
             Vector3 localScale = transform.localScale;
             localScale.x *= -1f;
             transform.localScale = localScale;
         }
-    }*/
+    }
 }

@@ -1955,6 +1955,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1635230079}
     m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Points.Array.data[0].x
+      value: -0.094968796
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Points.Array.data[0].y
+      value: -0.6010982
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Points.Array.data[2].x
+      value: 0.16638613
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Points.Array.data[2].y
+      value: -0.6487099
+      objectReference: {fileID: 0}
     - target: {fileID: 478787509491743474, guid: 761035bf8de2aec42b2b79047504a093, type: 3}
       propertyPath: m_Name
       value: Player
@@ -2007,7 +2023,8 @@ PrefabInstance:
       propertyPath: joystick
       value: 
       objectReference: {fileID: 2129129801}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 761035bf8de2aec42b2b79047504a093, type: 3}
 --- !u!1 &1937677980
 GameObject:
