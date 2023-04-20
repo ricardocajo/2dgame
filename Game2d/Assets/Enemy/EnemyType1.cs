@@ -1,7 +1,13 @@
 using UnityEngine;
 public class EnemyType1 : Enemy
 {
-    // Implement the protected abstract properties
-    protected override float ContactDamage => 5f;
-    protected override float KnockbackForce => 200f;
+    void Start()
+    {
+        rb = gameObject.GetComponent<Rigidbody2D>();
+        animator = gameObject.GetComponent<Animator>();
+        current_hp = 100f;
+        max_hp = 100f;
+        knockbackForce = 200f;
+        contactDamage = 5f;
+    }
 }

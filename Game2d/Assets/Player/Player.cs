@@ -28,10 +28,8 @@ public class Player : MonoBehaviour {
                         "skill_3"                 
                     };
 
-    private void Awake()
-    {
-        if (_instance != null && _instance != this)
-        {
+    private void Awake() {
+        if (_instance != null && _instance != this) {
             Destroy(this.gameObject);
         } else {
             _instance = this;
@@ -40,14 +38,12 @@ public class Player : MonoBehaviour {
         }
     }
 
-    void OnEnable()
-    {
+    void OnEnable() {
         GameEvents.Instance.SetPlayerMaxHp(max_hp);
         GameEvents.Instance.SetPlayerMaxMana(max_mana);
     }
 
-    void Start()
-    {
+    void Start() {
         GameEvents.Instance.onEnemyContactTriggerEnter += EnemyContact;
         rb = gameObject.GetComponent<Rigidbody2D>();
         animator = gameObject.GetComponent<Animator>();
@@ -56,79 +52,65 @@ public class Player : MonoBehaviour {
         stats = new Stats();
     }
 
-    private void FixedUpdate()
-    {
-        if(current_hp < max_hp)
-        {
+    private void FixedUpdate() {
+        if(current_hp < max_hp) {
             current_hp = Mathf.Min(current_hp + hp_regen, max_hp);
             GameEvents.Instance.SetPlayerHpValue(current_hp);
             GameEvents.Instance.PlayerHpChange();
         }
-        if(current_mana < max_mana)
-        {
+        if(current_mana < max_mana) {
             current_mana = Mathf.Min(current_mana + mana_regen, max_mana);
             GameEvents.Instance.SetManaValue(current_mana);
             GameEvents.Instance.PlayerManaChange();
         }
     }
 
-    private void EnemyContact()
-    {
+    private void EnemyContact() {
         DoDamageToPlayer();
         PlayerMovement.Instance.DoKnockback();
 
     }
 
-    private void DoDamageToPlayer()
-    {
+    private void DoDamageToPlayer() {
         current_hp -= GameEvents.Instance.GetPlayerIncDamageValue();
         GameEvents.Instance.PlayerHpLost();
         CheckIfPlayerDead();
     }
 
-    private void CheckIfPlayerDead()
-    {   
-        if(current_hp <= 0f)
-        {
+    private void CheckIfPlayerDead() {   
+        if(current_hp <= 0f) {
             animator.SetBool("Die", true);
             // TODO die process
         }
     }
 
-    public static void UseAttack()
-    {
+    public static void UseAttack() {
         UseSkill(player_buttons[0]);
     }
-    public static void UseSkill_1()
-    {
+    public static void UseSkill_1() {
         UseSkill(player_buttons[1]);
     }
 
-    public static void UseSkill_2()
-    {
+    public static void UseSkill_2() {
         UseSkill(player_buttons[2]);
     }
 
-    public static void UseSkill_3()
-    {
+    public static void UseSkill_3() {
         UseSkill(player_buttons[3]);
     }
 
-    public static void UseSkill_4()
-    {
+    public static void UseSkill_4() {
         UseSkill(player_buttons[4]);
     }
 
-    private static void UseSkill(string move)
-    { 
+    private static void UseSkill(string move) { 
         Dictionary<string,float> skill_properties = Skills_list.skills[move];
         skill_properties.TryGetValue("mana", out float mana_cost);
         if(current_mana < mana_cost) {
             Debug.Log("Not enough mana: " + current_mana);
             Debug.Log("mana cost: " + mana_cost);
         }
-        else
-        {
+        else {
             current_mana = Mathf.Max(0, current_mana - mana_cost);
             GameEvents.Instance.SetManaValue(current_mana);
             GameEvents.Instance.PlayerManaChange();
@@ -136,4 +118,9 @@ public class Player : MonoBehaviour {
         }
     }
 
+    public static float GetOutputDamage(string move) {
+        Skills_list.skills[move].TryGetValue("damage", out float move_damage);
+        //Changes to damage depending on stats
+        return move_damage;
+    }
 }
