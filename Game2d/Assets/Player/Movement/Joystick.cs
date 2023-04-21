@@ -13,14 +13,12 @@ public class Joystick : MonoBehaviour
     public Camera cameraUI;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         joystickOriginalPos = joystickBG.transform.position;
         joystickRadius = joystickBG.GetComponent<RectTransform>().sizeDelta.y / 80f;
     }
 
-    public void PointerDown()
-    {
+    public void PointerDown() {
         Vector3 screenPosition = Input.mousePosition;
         screenPosition.z = cameraUI.nearClipPlane + 1;
         Vector3 screenToWorldPos = cameraUI.ScreenToWorldPoint(screenPosition);
@@ -30,8 +28,7 @@ public class Joystick : MonoBehaviour
         joystickTouchPos = screenToWorldPos;
     }
 
-    public void Drag(BaseEventData baseEventData)
-    {
+    public void Drag(BaseEventData baseEventData) {
         PointerEventData pointerEventData = baseEventData as PointerEventData;
         Vector2 dragPos = pointerEventData.position;
         Vector2 screenToWorldPos = cameraUI.ScreenToWorldPoint(dragPos);
@@ -39,19 +36,15 @@ public class Joystick : MonoBehaviour
 
         float joystickDist = Vector2.Distance(screenToWorldPos, joystickTouchPos);
 
-        if(joystickDist < joystickRadius)
-        {
+        if(joystickDist < joystickRadius) {
             joystick.transform.position = joystickTouchPos + joystickVec * joystickDist;
         }
-
-        else
-        {
+        else {
             joystick.transform.position = joystickTouchPos + joystickVec * joystickRadius;
         }
     }
 
-    public void PointerUp()
-    {
+    public void PointerUp() {
         joystickVec = Vector2.zero;
         joystick.transform.position = joystickOriginalPos;
         joystickBG.transform.position = joystickOriginalPos;

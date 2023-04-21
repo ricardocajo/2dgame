@@ -8,7 +8,7 @@ public class Player : MonoBehaviour {
     public static Player Instance { get { return _instance; } }
 
     private Equipment equipment;
-    private Experience experience;
+    private static Experience experience;
     private Stats stats;
     private Inventory inventory;
     private float current_hp = 100f;
@@ -50,6 +50,7 @@ public class Player : MonoBehaviour {
         // should inventory/stats be initiated here? does it persist between scenes?
         inventory = new Inventory();
         stats = new Stats();
+        experience = new Experience();
     }
 
     private void FixedUpdate() {
@@ -122,5 +123,9 @@ public class Player : MonoBehaviour {
         Skills_list.skills[move].TryGetValue("damage", out float move_damage);
         //Changes to damage depending on stats
         return move_damage;
+    }
+
+    public static void ReceiveExperience(int exp_value) {
+        experience.GainExp(exp_value);
     }
 }

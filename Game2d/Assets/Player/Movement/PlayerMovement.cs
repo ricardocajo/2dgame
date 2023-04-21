@@ -17,10 +17,8 @@ public class PlayerMovement : MonoBehaviour {
     private Animator animator;
     public Joystick joystick;
 
-    private void Awake()
-    {
-        if (_instance != null && _instance != this)
-        {
+    private void Awake() {
+        if (_instance != null && _instance != this) {
             Destroy(this.gameObject);
         } else {
             _instance = this;
@@ -29,38 +27,32 @@ public class PlayerMovement : MonoBehaviour {
         }
     }
 
-    void Start()
-    {
+    void Start() {
         rb = gameObject.GetComponent<Rigidbody2D>();
         animator = gameObject.GetComponent<Animator>();
     }
 
-    void Update()
-    {
+    void Update() {
         //TODO This is always 0 ????
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
     }
 
-    private void FixedUpdate()
-    {
+    private void FixedUpdate() {
         if(knocked_back) {
             rb.AddForce(knockback_difference, ForceMode2D.Force);
         }
-        if(joystick.joystickVec.y != 0 || joystick.joystickVec.x != 0)
-        {
+        if(joystick.joystickVec.y != 0 || joystick.joystickVec.x != 0) {
             rb.velocity = new Vector2(joystick.joystickVec.x * speed, joystick.joystickVec.y * speed);
             Flip_Horizontal();
         }
-        else
-        {
+        else {
             rb.velocity = new Vector2(horizontal * speed, vertical * speed);
         }
         animator.SetFloat("Speed",Mathf.Max(Mathf.Abs(joystick.joystickVec.y), Mathf.Abs(joystick.joystickVec.x))); 
     }
 
-    public void DoKnockback()
-     {
+    public void DoKnockback() {
         Vector2 difference = transform.position - GameEvents.Instance.GetEnemyInContactPosition();
         knockback_difference = difference.normalized * GameEvents.Instance.GetEnemyKnockBackForce();
         knocked_back = true;
@@ -68,18 +60,15 @@ public class PlayerMovement : MonoBehaviour {
         StartCoroutine(Unknockback());
      }
 
-    private IEnumerator Unknockback()
-    {
+    private IEnumerator Unknockback() {
         yield return new WaitForSeconds(knockback_time);
         knocked_back = false;
         animator.SetBool("TakeHit", false);
     }
 
-    private void Flip_Horizontal()
-    {
+    private void Flip_Horizontal() {
         // joystick.joystickVec.x  by horizontal
-        if(is_facing_right && joystick.joystickVec.x < 0f || !is_facing_right && joystick.joystickVec.x > 0f)
-        {
+        if(is_facing_right && joystick.joystickVec.x < 0f || !is_facing_right && joystick.joystickVec.x > 0f) {
             is_facing_right = !is_facing_right;
             Vector3 localScale = transform.localScale;
             localScale.x *= -1f;

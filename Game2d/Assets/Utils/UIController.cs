@@ -8,8 +8,7 @@ public class UIController : MonoBehaviour
     private float player_max_hp;
     private float player_max_mana;
 
-    void Start()
-    {
+    void Start() {
         hpBar_image = gameObject.transform.Find("Health_bar").gameObject.GetComponent<Image>();
         manaBar_image = gameObject.transform.Find("Mana_bar").gameObject.GetComponent<Image>();
         GameEvents.Instance.onPlayerHpLost += DecreaseHpBar;
@@ -19,18 +18,15 @@ public class UIController : MonoBehaviour
         player_max_mana = GameEvents.Instance.GetPlayerMaxMana();
     }
 
-    private void DecreaseHpBar()
-    {
+    private void DecreaseHpBar() {
         hpBar_image.fillAmount -= GameEvents.Instance.GetPlayerIncDamageValue() / player_max_hp;
     }
 
-    private void ChangePlayerManaBar()
-    {
+    private void ChangePlayerManaBar() {
         manaBar_image.fillAmount = GameEvents.Instance.GetManaValue() / player_max_mana;
     }
 
-    private void ChangePlayerHpBar()
-    {
+    private void ChangePlayerHpBar() {
         hpBar_image.fillAmount = GameEvents.Instance.GetPlayerHpValue() / player_max_hp;
     }
 }

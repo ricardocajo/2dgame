@@ -8,7 +8,7 @@ public abstract class Enemy : MonoBehaviour
     protected float current_hp;
     protected float max_hp;
     protected Animator animator;
-    protected Rigidbody2D rb;
+    protected int exp_value;
 
     public virtual void OnCollisionEnter2D(Collision2D other) {
         GameEvents.Instance.SetEnemyInContactPosition(transform.position);
@@ -28,9 +28,12 @@ public abstract class Enemy : MonoBehaviour
 
     private void CheckIfEnemyDead() {   
         if(current_hp <= 0f) {
-            Debug.Log("Enemy dead");
-            //animator.SetBool("Die", true);
-            // TODO die process
+            animator.SetBool("Die", true);
+            //Destroy(gameObject);   Maybe jsut leave it there but somehow clean it after?
+            Destroy(GetComponent<Collider2D>());
+            if(exp_value > 0) {
+                Player.ReceiveExperience(exp_value);
+            }
         }
     }
 }

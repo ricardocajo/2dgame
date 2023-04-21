@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 879257717308510506}
   - component: {fileID: 2752307234433038475}
   - component: {fileID: 9204925756630253928}
-  - component: {fileID: 327015793144176923}
+  - component: {fileID: -8076437361828254605}
   - component: {fileID: -5383850887178196282}
   m_Layer: 0
-  m_Name: Enemy_type1
+  m_Name: SkeletonAxe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 8417797949047346102}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 15, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -76,12 +76,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
-  m_Color: {r: 0.735849, g: 0.24644002, b: 0.24644002, a: 1}
+  m_Sprite: {fileID: -1182936279, guid: ddbd14c863e5cc344a459ebb0e347ab4, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.75, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -103,19 +103,20 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.28866667}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.75, y: 1}
+    newSize: {x: 0.75, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0, y: 0.5773587}
-      - {x: -0.5, y: -0.28866667}
-      - {x: 0.5, y: -0.28866667}
---- !u!114 &327015793144176923
+    - - {x: 0.15295458, y: 0.25863308}
+      - {x: -0.21695852, y: 0.2736169}
+      - {x: -0.43925095, y: -0.49694675}
+      - {x: 0.12683153, y: -0.51430345}
+--- !u!114 &-8076437361828254605
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,7 +125,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8417797949047346102}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b16b06241bd24845af40858ae05e9c1, type: 3}
+  m_Script: {fileID: 11500000, guid: d2f9555a1f1fecc44afb39fae46d43e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!95 &-5383850887178196282
@@ -137,7 +138,7 @@ Animator:
   m_GameObject: {fileID: 8417797949047346102}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6af0a79b7c70ace4f875db8dad3c4fd8, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
