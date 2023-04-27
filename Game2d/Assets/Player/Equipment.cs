@@ -14,4 +14,11 @@ public class Equipment {
         weapon = new_weapon;
     }
 
+    public void SetArmor(Item new_armor) {
+        armor = new_armor;
+    }
+
+    public void SetBoots(Item new_boots) {
+        boots = new_boots;
+    }
 }

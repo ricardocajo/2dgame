@@ -9,7 +9,7 @@ public class Player : MonoBehaviour {
 
     private Equipment equipment;
     private static Experience experience;
-    private Stats stats;
+    private static Stats stats;
     private Inventory inventory;
     private float current_hp = 100f;
     private float max_hp = 100f;
@@ -17,6 +17,7 @@ public class Player : MonoBehaviour {
     private static float current_mana = 100f;
     private float max_mana = 100f;
     private float mana_regen = 0.05f;
+    private bool player_dead = false;
     private Rigidbody2D rb;
     private static Animator animator;
     private static List<string> player_buttons = new List<string>()
@@ -54,12 +55,12 @@ public class Player : MonoBehaviour {
     }
 
     private void FixedUpdate() {
-        if(current_hp < max_hp) {
+        if(!player_dead && current_hp < max_hp) {
             current_hp = Mathf.Min(current_hp + hp_regen, max_hp);
             GameEvents.Instance.SetPlayerHpValue(current_hp);
             GameEvents.Instance.PlayerHpChange();
         }
-        if(current_mana < max_mana) {
+        if(!player_dead && current_mana < max_mana) {
             current_mana = Mathf.Min(current_mana + mana_regen, max_mana);
             GameEvents.Instance.SetManaValue(current_mana);
             GameEvents.Instance.PlayerManaChange();
@@ -81,6 +82,7 @@ public class Player : MonoBehaviour {
     private void CheckIfPlayerDead() {   
         if(current_hp <= 0f) {
             animator.SetBool("Die", true);
+            player_dead = true;
             // TODO die process
         }
     }
@@ -121,11 +123,15 @@ public class Player : MonoBehaviour {
 
     public static float GetOutputDamage(string move) {
         Skills_list.skills[move].TryGetValue("damage", out float move_damage);
-        //Changes to damage depending on stats
+        // TODO Changes to damage depending on stats
         return move_damage;
     }
 
     public static void ReceiveExperience(int exp_value) {
+        int level_before = experience.GetLevel();
         experience.GainExp(exp_value);
+        if(level_before < experience.GetLevel()) {
+            stats.AddPointsToDistribute(1);
+        }  
     }
 }

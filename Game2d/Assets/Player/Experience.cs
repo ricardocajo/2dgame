@@ -12,9 +12,18 @@ public class Experience {
 
     public void GainExp(int value) {
         current_experience += value;
+        if(current_experience >= max_experience_level) {
+            LevelUp();
+        }
     }
 
     private void LevelUp() {
+        current_experience -= max_experience_level;
+        max_experience_level *= 3;
+        level += 1;
+    }
 
+    public int GetLevel() {
+        return level;
     }
 }
